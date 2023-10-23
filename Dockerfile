@@ -1,7 +1,7 @@
-FROM php:8.2-fpm-alpine
+FROM php:8.2-fpm-bullseye
 
 # Install dependencies
-RUN apk --no-cache add curl git wget bash dpkg
+RUN apt-get update && apt-get install -y curl git wget bash dpkg
 
 # Add PHP extensions
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
@@ -12,9 +12,8 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 # Symfony tool
-RUN apk add --no-cache bash && \
-    curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | bash && \
-    apk add symfony-cli
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash && \
+    apt-get install symfony-cli
 
 # Security checker tool
 ENV PHP_SECURITY_CHECHER_VERSION=2.0.6
