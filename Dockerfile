@@ -23,4 +23,4 @@ RUN curl -L https://github.com/fabpot/local-php-security-checker/releases/downlo
 # Xdebug (disabled by default, but installed if required)
 ADD php.ini /usr/local/etc/php/conf.d/
 
-WORKDIR /var/www
+WORKDIR /var/www/html
